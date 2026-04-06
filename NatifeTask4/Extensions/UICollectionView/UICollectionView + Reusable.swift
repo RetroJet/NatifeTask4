@@ -21,7 +21,7 @@ public extension UICollectionView {
     func register<Cell: UICollectionViewCell>(cell: Cell.Type) {
         self.register(cell.self, forCellWithReuseIdentifier: cell.identifier)
     }
-    
+
     func register<T: UICollectionReusableView>(
         view: T.Type,
         for kind: String,
@@ -33,7 +33,7 @@ public extension UICollectionView {
             withReuseIdentifier: identifier
         )
     }
-    
+
     func dequeue<Cell: UICollectionViewCell>(for indexPath: IndexPath) -> Cell {
         guard let cell = self.dequeueReusableCell(
             withReuseIdentifier: Cell.identifier,
