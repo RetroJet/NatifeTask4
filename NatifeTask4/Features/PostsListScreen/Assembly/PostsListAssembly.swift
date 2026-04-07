@@ -10,12 +10,12 @@ import UIKit
 final class PostsListAssembly {
     static func build() -> UIViewController {
         let networkService = NetworkService()
-        let postsRepository = PostsRepository(networkService: networkService)
+        let dataRepository = DataRepository(networkService: networkService)
         let router = PostsListRouter()
         let viewController = PostsListViewController()
         let presenter = PostsListPresenter(
             viewController: viewController,
-            postRepository: postsRepository,
+            dataRepository: dataRepository,
             router: router
         )
 

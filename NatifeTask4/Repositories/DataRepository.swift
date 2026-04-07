@@ -1,5 +1,5 @@
 //
-//  PostsRepository.swift
+//  DataRepository.swift
 //  NatifeTask4
 //
 //  Created by Nazar on 05.04.2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PostsRepository {
+final class DataRepository {
 
     // MARK: - Properties
 
@@ -23,7 +23,7 @@ final class PostsRepository {
 
 // MARK: - Internal Methods
 
-extension PostsRepository {
+extension DataRepository {
     func fetchPosts() async throws -> [Post] {
         guard let url = URL(string: "\(baseURL)\(Constants.postsPath)") else {
             throw NetworkError.invalidURL
@@ -33,7 +33,7 @@ extension PostsRepository {
     }
 }
 
-private extension PostsRepository {
+private extension DataRepository {
     enum Constants {
         static let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
         static let postsPath = "/main.json"

@@ -17,14 +17,14 @@ final class PostsListPresenter {
 
     private var expandedItems: Set<Int> = []
     private weak var viewController: PostsListViewControllerProtocol?
-    private let postsRepository: PostsRepository
+    private let dataRepository: DataRepository
     private let router: PostsListRouterProtocol
 
     // MARK: - Initializers
 
-    init(viewController: PostsListViewControllerProtocol, postRepository: PostsRepository, router: PostsListRouter) {
+    init(viewController: PostsListViewControllerProtocol, dataRepository: DataRepository, router: PostsListRouterProtocol) {
         self.viewController = viewController
-        self.postsRepository = postRepository
+        self.dataRepository = dataRepository
         self.router = router
     }
 }
@@ -34,7 +34,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
     func fetchPosts() {
         Task {
             do {
-                let posts = try await postsRepository.fetchPosts()
+                let posts = try await dataRepository.fetchPosts()
                 viewController?.showPosts(posts)
             } catch {
                 print("FetchPosts error: \(error)")

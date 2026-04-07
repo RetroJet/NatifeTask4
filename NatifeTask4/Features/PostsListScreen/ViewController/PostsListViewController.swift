@@ -16,7 +16,7 @@ final class PostsListViewController: UIViewController {
 
     // MARK: - UI Elements
 
-    private lazy var collectionView: UICollectionView! = {
+    private lazy var collectionView: UICollectionView = {
         let layout = createLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         // collectionView.delegate = self
