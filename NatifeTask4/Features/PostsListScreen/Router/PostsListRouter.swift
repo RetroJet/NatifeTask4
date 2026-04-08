@@ -13,13 +13,18 @@ protocol PostsListRouterProtocol: AnyObject {
 
 final class PostsListRouter {
     weak var viewController: UIViewController?
+    private let networkService: NetworkService
+
+    init(networkService: NetworkService) {
+            self.networkService = networkService
+        }
 }
 
 // MARK: - PostsListRouterProtocol
 
 extension PostsListRouter: PostsListRouterProtocol {
     func openPostDetail(_ postId: Int) {
-        // let detailPostViewController =
-        // viewController?.navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        let postDetailViewController = PostDetailAssembly.build(postId: postId, networkService: networkService)
+        viewController?.navigationController?.pushViewController(postDetailViewController, animated: true)
     }
 }

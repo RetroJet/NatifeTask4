@@ -19,7 +19,7 @@ final class PostsListViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = createLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        // collectionView.delegate = self
+        collectionView.delegate = self
         collectionView.register(cell: PostCell.self)
         return collectionView
     }()
@@ -127,6 +127,15 @@ private extension PostsListViewController {
 private extension PostsListViewController {
     enum Constants {
         static let navigationBarTitle: String = "Title"
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension PostsListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let post = diffableDataSource.itemIdentifier(for: indexPath) else { return }
+        presenter.openPostDetail(post.postId)
     }
 }
 
