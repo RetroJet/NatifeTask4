@@ -12,6 +12,20 @@
         }
       }
     },
+    "post_detail_failed_to_load" : {
+
+    },
+    "post_detail_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to load post"
+          }
+        }
+      }
+    },
     "posts_list_failed_to_load" : {
       "extractionState" : "manual",
       "localizations" : {
