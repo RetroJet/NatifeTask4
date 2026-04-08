@@ -12,10 +12,6 @@ enum PostsListText {
     static let failedToLoadPosts = String(localized: "posts_list_failed_to_load")
 }
 
-enum PostDetailText {
-    static let failedToLoadPost = String(localized: "post_detail_failed_to_load")
-}
-
 enum CommonText {
     static let okButtonTitle = String(localized: "common_ok_button_title")
 }

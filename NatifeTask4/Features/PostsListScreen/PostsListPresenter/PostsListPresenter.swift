@@ -9,7 +9,6 @@ protocol PostsListPresenterProtocol: AnyObject {
     func fetchPosts()
     func isExpanded(_ postId: Int) -> Bool
     func toggleExpand(_ postId: Int)
-    func openPostDetail(_ postId: Int)
 }
 
 final class PostsListPresenter {
@@ -23,25 +22,12 @@ final class PostsListPresenter {
 
     // MARK: - Initializers
 
-    init(
-        viewController: PostsListViewControllerProtocol,
-        dataRepository: DataRepository,
-        router: PostsListRouterProtocol
-    ) {
+    init(viewController: PostsListViewControllerProtocol, dataRepository: DataRepository, router: PostsListRouterProtocol) {
         self.viewController = viewController
         self.dataRepository = dataRepository
         self.router = router
     }
 }
-
-// MARK: - Private Methods
-
-private extension PostsListPresenter {
-    enum Constants {
-        static let fetchPosts = "FetchPosts error"
-    }
-}
-
 // MARK: - PostsListPresenterProtocol
 
 extension PostsListPresenter: PostsListPresenterProtocol {
@@ -51,7 +37,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
                 let posts = try await dataRepository.fetchPosts()
                 viewController?.showPosts(posts)
             } catch {
-                print("\(Constants.fetchPosts): \(error)")
+                print("FetchPosts error: \(error)")
                 viewController?.showError(PostsListText.failedToLoadPosts)
             }
         }
@@ -67,9 +53,5 @@ extension PostsListPresenter: PostsListPresenterProtocol {
         } else {
             expandedItems.insert(postId)
         }
-    }
-
-    func openPostDetail(_ postId: Int) {
-        router.openPostDetail(postId)
     }
 }

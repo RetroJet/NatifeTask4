@@ -8,9 +8,10 @@
 import UIKit
 
 final class PostsListAssembly {
-    static func build(networkService: NetworkService) -> UIViewController {
+    static func build() -> UIViewController {
+        let networkService = NetworkService()
         let dataRepository = DataRepository(networkService: networkService)
-        let router = PostsListRouter(networkService: networkService)
+        let router = PostsListRouter()
         let viewController = PostsListViewController()
         let presenter = PostsListPresenter(
             viewController: viewController,
