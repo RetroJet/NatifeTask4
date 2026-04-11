@@ -21,6 +21,8 @@ final class PostsListPresenter {
 
     private var allPosts: [Post] = []
     private var expandedItems: Set<Int> = []
+    private var searchTask: Task<Void, Never>?
+    private let minSearchLenght = 2
     private weak var viewController: PostsListViewControllerProtocol?
     private let dataRepository: DataRepository
     private let router: PostsListRouterProtocol
@@ -79,14 +81,26 @@ extension PostsListPresenter: PostsListPresenterProtocol {
     }
 
     func search(_ query: String) {
+        searchTask?.cancel()
+
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else {
+
+        guard trimmed.count >= minSearchLenght else {
             viewController?.showPosts(allPosts)
             return
         }
-        let filtered = allPosts.filter {
-            $0.previewText.range(of: trimmed, options: .caseInsensitive) != nil
+
+        searchTask = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(0.5))
+            guard let self, !Task.isCancelled else { return }
+
+            let filtered = allPosts.filter {
+                $0.previewText.range(of: trimmed, options: .caseInsensitive) != nil
+            }
+
+            await MainActor.run {
+                self.viewController?.showPosts(filtered)
+            }
         }
-        viewController?.showPosts(filtered)
     }
 }
