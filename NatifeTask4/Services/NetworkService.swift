@@ -29,7 +29,7 @@ enum HTTPMethod: String {
 }
 
 final class NetworkService {
-    func request(_ url: URL,_ method: HTTPMethod = .get) async throws -> Data {
+    func request(_ url: URL, _ method: HTTPMethod = .get) async throws -> Data {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         let (data, response) = try await URLSession.shared.data(for: request)

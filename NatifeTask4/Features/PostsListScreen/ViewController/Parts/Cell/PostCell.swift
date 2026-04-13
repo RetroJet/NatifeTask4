@@ -37,6 +37,7 @@ final class PostCell: UICollectionViewCell {
         let label = UILabel()
         label.font = .systemFont(ofSize: 13)
         label.textColor = .gray
+        label.textAlignment = .right
         return label
     }()
 
@@ -95,15 +96,30 @@ final class PostCell: UICollectionViewCell {
 // MARK: - Internal Methods
 
 extension PostCell {
-    func configure(with post: Post, isExpanded: Bool) {
+    func configure(with post: Post, isExpanded: Bool, isGallery: Bool = false, isGrid: Bool = false) {
         let postDate = Date(timeIntervalSince1970: TimeInterval(post.timeshamp))
         dateLabel.text = DateFormatter.postDate.string(from: postDate)
         titleLabel.text = post.title
         likeLabel.text = "\(Constant.likeIcon)\(post.likesCount)"
         textLabel.text = post.previewText
-        textLabel.numberOfLines = isExpanded ? Constant.expandedLines : Constant.collapsedLines
-        expandButton.setTitle(isExpanded ? Constant.collapseTitle : Constant.expandTitle, for: .normal)
-        expandButton.isHidden = post.previewText.count < Constant.previewTextMinLength
+
+        let isShortText = post.previewText.count < Constant.previewTextMinLength
+
+        if isGallery {
+            titleLabel.numberOfLines = 0
+            textLabel.numberOfLines = 0
+            expandButton.isHidden = true
+        } else if isGrid {
+            titleLabel.numberOfLines = 1
+            textLabel.numberOfLines = isShortText ? 0 : (isExpanded ? Constant.expandedLines : Constant.collapsedLines)
+            expandButton.setTitle(isExpanded ? Constant.collapseTitle : Constant.expandTitle, for: .normal)
+            expandButton.isHidden = isShortText
+        } else {
+            titleLabel.numberOfLines = 0
+            textLabel.numberOfLines = isShortText ? 0 : (isExpanded ? Constant.expandedLines : Constant.collapsedLines)
+            expandButton.setTitle(isExpanded ? Constant.collapseTitle : Constant.expandTitle, for: .normal)
+            expandButton.isHidden = isShortText
+        }
     }
 }
 

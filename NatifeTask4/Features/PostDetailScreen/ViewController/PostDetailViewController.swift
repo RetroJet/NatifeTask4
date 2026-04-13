@@ -22,7 +22,6 @@ final class PostDetailViewController: UIViewController {
 
     private lazy var imageMain: UIImageView = {
         let image = UIImageView()
-        image.image = .imageNotFound
         image.contentMode = .scaleAspectFill
         image.clipsToBounds = true
         return image
@@ -77,6 +76,12 @@ final class PostDetailViewController: UIViewController {
         return spacer
     }()
 
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+
     // MARK: - Properties
 
     var presenter: PostDetailPresenterProtocol!
@@ -98,6 +103,8 @@ private extension PostDetailViewController {
     func setupView() {
         view.backgroundColor = .white
         view.addSubview(scrollView)
+
+        imageMain.addSubview(activityIndicator)
 
         scrollView.addSubview(contentView)
 
@@ -137,6 +144,7 @@ private extension PostDetailViewController {
             scrollView,
             contentView,
             imageMain,
+            activityIndicator,
             textStackView,
             bottomStackView,
         )
@@ -157,6 +165,9 @@ private extension PostDetailViewController {
             imageMain.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             imageMain.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageMain.heightAnchor.constraint(equalToConstant: 350),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: imageMain.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: imageMain.centerYAnchor),
 
             textStackView.topAnchor.constraint(equalTo: imageMain.bottomAnchor, constant: 20),
             textStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
@@ -187,11 +198,13 @@ extension PostDetailViewController: PostDetailViewControllerProtocol {
         textLabel.text = post.text
         likeLabel.text = "\(Constants.likeIcon)\(post.likesCount)"
 
+        activityIndicator.startAnimating()
         presenter.loadImage(from: post.postImage)
 
     }
 
     func showImage(_ data: Data) {
+        activityIndicator.stopAnimating()
         imageMain.image = UIImage(data: data)
     }
 
