@@ -18,7 +18,8 @@ protocol PostsListPresenterProtocol: AnyObject {
 final class PostsListPresenter {
 
     // MARK: - Properties
-
+    
+    private var currentQuery = ""
     private var allPosts: [Post] = []
     private var expandedItems: Set<Int> = []
     private var searchTask: Task<Void, Never>?
@@ -56,7 +57,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
             do {
                 let posts = try await dataRepository.fetchPosts()
                 allPosts = posts
-                viewController?.showPosts(posts)
+                search(currentQuery)
             } catch {
                 print("\(Constants.fetchPosts): \(error)")
                 viewController?.showError(PostsListText.failedToLoadPosts)
@@ -82,6 +83,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
 
     func search(_ query: String) {
         searchTask?.cancel()
+        currentQuery = query
 
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
 
