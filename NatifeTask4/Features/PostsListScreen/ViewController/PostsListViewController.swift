@@ -71,6 +71,14 @@ final class PostsListViewController: UIViewController {
         return tabsView
     }()
 
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.backgroundColor = .white
+        searchBar.searchBarStyle = .minimal
+        searchBar.placeholder = "Search"
+        return searchBar
+    }()
+
     // MARK: - Properties
 
     var presenter: PostsListPresenterProtocol!
@@ -80,6 +88,7 @@ final class PostsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDelegates()
         setupNavigationBar()
         setupView()
         setupLayout()
@@ -92,9 +101,14 @@ final class PostsListViewController: UIViewController {
 private extension PostsListViewController {
     func setupView() {
         view.addSubviews(
+            searchBar,
             tabsView,
             collectionView
         )
+    }
+
+    func setupDelegates() {
+        searchBar.delegate = self
     }
 
     func setupNavigationBar() {
@@ -112,12 +126,17 @@ private extension PostsListViewController {
 private extension PostsListViewController {
     func setupLayout() {
         view.disableAutoresizing(
+            searchBar,
             tabsView,
             collectionView
         )
 
         NSLayoutConstraint.activate([
-            tabsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            tabsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             tabsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tabsView.heightAnchor.constraint(equalToConstant: 55),
@@ -284,3 +303,13 @@ extension PostsListViewController: PostsListViewControllerProtocol {
                 : (collapsedTextHeight + expandedVerticalInset)
         }
     }
+
+extension PostsListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.search(searchText)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}
