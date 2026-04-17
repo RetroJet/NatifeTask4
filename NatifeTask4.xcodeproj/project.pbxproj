@@ -14,7 +14,7 @@
 		789B4A6B2F7D225D00DFF47A /* Exceptions for "NatifeTask4" folder in "NatifeTask4" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Resources/Info.plist,
+				App/Resources/Info.plist,
 			);
 			target = 789B4A582F7D225B00DFF47A /* NatifeTask4 */;
 		};
@@ -158,7 +158,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NatifeTask4/Resources/Info.plist;
+				INFOPLIST_FILE = NatifeTask4/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -190,7 +190,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = NatifeTask4/Resources/Info.plist;
+				INFOPLIST_FILE = NatifeTask4/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

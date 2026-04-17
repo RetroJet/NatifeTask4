@@ -22,12 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        let networkService = NetworkService()
-        let navigationController = UINavigationController(
-            rootViewController: PostsListAssembly.build(
-                networkService: networkService
-            )
-        )
+        let navigationController = UINavigationController(rootViewController: PostsListAssembly.build())
 
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = navigationController
