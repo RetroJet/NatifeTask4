@@ -6,6 +6,26 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		787B881E2F92CE5400F06825 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 787B881D2F92CE5400F06825 /* SnapKit */; };
+		787B88292F92E40900F06825 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 787B88282F92E40900F06825 /* Alamofire */; };
+		787B882E2F92F36200F06825 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 787B882D2F92F36200F06825 /* FirebaseCrashlytics */; };
+		787B88352F93004E00F06825 /* DebugSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 787B88342F93004E00F06825 /* DebugSwift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		787B88262F92DE9500F06825 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		789B4A592F7D225B00DFF47A /* NatifeTask4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NatifeTask4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +56,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787B882E2F92F36200F06825 /* FirebaseCrashlytics in Frameworks */,
+				787B881E2F92CE5400F06825 /* SnapKit in Frameworks */,
+				787B88352F93004E00F06825 /* DebugSwift in Frameworks */,
+				787B88292F92E40900F06825 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,17 +92,23 @@
 				789B4A552F7D225B00DFF47A /* Sources */,
 				789B4A562F7D225B00DFF47A /* Frameworks */,
 				789B4A572F7D225B00DFF47A /* Resources */,
+				787B88262F92DE9500F06825 /* Embed Frameworks */,
+				787B88312F92F6FE00F06825 /* Run Script */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				789D9FFA2F8CEE22005584D5 /* PBXTargetDependency */,
+				787B88302F92F56600F06825 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				789B4A5B2F7D225B00DFF47A /* NatifeTask4 */,
 			);
 			name = NatifeTask4;
 			packageProductDependencies = (
+				787B881D2F92CE5400F06825 /* SnapKit */,
+				787B88282F92E40900F06825 /* Alamofire */,
+				787B882D2F92F36200F06825 /* FirebaseCrashlytics */,
+				787B88342F93004E00F06825 /* DebugSwift */,
 			);
 			productName = NatifeTask4;
 			productReference = 789B4A592F7D225B00DFF47A /* NatifeTask4.app */;
@@ -110,6 +140,10 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				789BBE332F83BADC0046A4E8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				787B881C2F92CE5400F06825 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				787B88272F92E40900F06825 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				787B882C2F92F36200F06825 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				787B88332F93004E00F06825 /* XCRemoteSwiftPackageReference "DebugSwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 789B4A5A2F7D225B00DFF47A /* Products */;
@@ -131,6 +165,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		787B88312F92F6FE00F06825 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)\n$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Resources/DWARF\n$(DWARF_DSYM_FOLDER_PATH)/$(DWARF_DSYM_FILE_NAME)/Contents/Info.plist\n$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist\n$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		789B4A552F7D225B00DFF47A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -142,9 +198,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		789D9FFA2F8CEE22005584D5 /* PBXTargetDependency */ = {
+		787B88302F92F56600F06825 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 789D9FF92F8CEE22005584D5 /* SwiftLintBuildToolPlugin */;
+			productRef = 787B882F2F92F56600F06825 /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -156,7 +212,9 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NatifeTask4/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -189,6 +247,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 79NZFM7X3P;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NatifeTask4/App/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -364,6 +423,38 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		787B881C2F92CE5400F06825 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		787B88272F92E40900F06825 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.11.2;
+			};
+		};
+		787B882C2F92F36200F06825 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.1;
+			};
+		};
+		787B88332F93004E00F06825 /* XCRemoteSwiftPackageReference "DebugSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DebugSwift/DebugSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.14.0;
+			};
+		};
 		789BBE332F83BADC0046A4E8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
@@ -375,10 +466,30 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		789D9FF92F8CEE22005584D5 /* SwiftLintBuildToolPlugin */ = {
+		787B881D2F92CE5400F06825 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 787B881C2F92CE5400F06825 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		787B88282F92E40900F06825 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 787B88272F92E40900F06825 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		787B882D2F92F36200F06825 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 787B882C2F92F36200F06825 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		787B882F2F92F56600F06825 /* SwiftLintBuildToolPlugin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 789BBE332F83BADC0046A4E8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
 			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
+		787B88342F93004E00F06825 /* DebugSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 787B88332F93004E00F06825 /* XCRemoteSwiftPackageReference "DebugSwift" */;
+			productName = DebugSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

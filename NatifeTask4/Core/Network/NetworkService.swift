@@ -5,6 +5,7 @@
 //  Created by Nazar on 06.04.2026.
 //
 
+import Alamofire
 import Foundation
 
 enum NetworkError: LocalizedError {
@@ -40,17 +41,21 @@ extension NetworkServiceProtocol {
 
 nonisolated final class NetworkService: NetworkServiceProtocol {
     func request(_ url: URL, _ method: HTTPMethod = .get) async throws -> Data {
-        var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
-        let (data, response) = try await URLSession.shared.data(for: request)
-
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-            let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
-            throw NetworkError.requestFailed(statusCode: statusCode)
+        let afMethod = Alamofire.HTTPMethod(rawValue: method.rawValue)
+        
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.request(url, method: afMethod)
+                .validate(statusCode: 200...299)
+                .responseData { response in
+                    switch response.result {
+                    case.success(let data):
+                        continuation.resume(returning: data)
+                    case .failure:
+                        let statusCode = response.response?.statusCode ?? 0
+                        continuation.resume(throwing: NetworkError.requestFailed(statusCode: statusCode))
+                    }
+                }
         }
-
-        return data
     }
 }
 
