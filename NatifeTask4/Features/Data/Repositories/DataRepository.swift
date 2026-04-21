@@ -7,23 +7,29 @@
 
 import Foundation
 
-final class DataRepository {
+protocol DataRepositoryProtocol {
+    func fetchPosts() async throws -> [PostsListsInfo]
+    func fetchPost(id: Int) async throws -> PostDetailInfo
+    func fetchImage(from urlString: String) async throws -> Data
+}
+
+nonisolated final class DataRepository {
 
     // MARK: - Properties
 
-    private let networkService: NetworkService
+    private let networkService: any NetworkServiceProtocol
     private let baseURL = Constants.baseURL
 
     // MARK: - Initializers
 
-    init(networkService: NetworkService) {
+    init(networkService: any NetworkServiceProtocol) {
         self.networkService = networkService
     }
 }
 
 // MARK: - Internal Methods
 
-extension DataRepository {
+extension DataRepository: DataRepositoryProtocol {
     func fetchPosts() async throws -> [PostsListsInfo] {
         guard let url = URL(string: "\(baseURL)\(Constants.postsPath)") else {
             throw NetworkError.invalidURL
@@ -54,7 +60,7 @@ extension DataRepository {
 }
 
 private extension DataRepository {
-    enum Constants {
+   nonisolated enum Constants {
         static let baseURL = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
         static let postsPath = "/main.json"
         static let postDetailPath = "/posts/"

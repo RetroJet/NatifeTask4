@@ -24,10 +24,10 @@ final class PostsListPresenter {
     private var allPosts: [PostsListsInfo] = []
     private var expandedItems: Set<Int> = []
     private var searchTask: Task<Void, Never>?
-    
+
     private weak var viewController: PostsListViewControllerProtocol?
     private let viewStateFactory: PostsListViewStateFactoryProtocol
-    private let dataRepository: DataRepository
+    private let dataRepository: any DataRepositoryProtocol
     private let router: PostsListRouterProtocol
 
     // MARK: - Initializers
@@ -35,7 +35,7 @@ final class PostsListPresenter {
     init(
         viewStateFactory: PostsListViewStateFactoryProtocol,
         viewController: PostsListViewControllerProtocol,
-        dataRepository: DataRepository,
+        dataRepository: any DataRepositoryProtocol,
         router: PostsListRouterProtocol
     ) {
         self.viewStateFactory = viewStateFactory
@@ -118,10 +118,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
             let filtered = allPosts.filter {
                 $0.previewText.range(of: trimmed, options: .caseInsensitive) != nil
             }
-
-            await MainActor.run {
                 self.viewController?.render(self.makeState(posts: filtered))
-            }
         }
     }
 }

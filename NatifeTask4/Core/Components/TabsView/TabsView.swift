@@ -77,6 +77,17 @@ extension TabsView {
         layoutIfNeeded()
         setupIndicator(animated: false)
     }
+
+    func setSelected(index: Int) {
+        guard index != selectedIndex, index < items.count else { return }
+        let previousIndex = selectedIndex
+        selectedIndex = index
+        collectionView.reloadItems(at: [
+            IndexPath(item: previousIndex, section: 0),
+            IndexPath(item: index, section: 0)
+        ])
+        setupIndicator(animated: false)
+    }
 }
 
 // MARK: - Private Methods

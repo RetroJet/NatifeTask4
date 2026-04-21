@@ -60,7 +60,8 @@ final class WaterfallLayout: UICollectionViewLayout {
             let itemHeight = delegate?.collectionView(
                 collectionView,
                 heightForItemAt: indexPath,
-                width: availableWidth) ?? 150
+                width: availableWidth
+            ) ?? 150
 
             let frame = CGRect(
                 x: xOffset[column] + cellPadding,

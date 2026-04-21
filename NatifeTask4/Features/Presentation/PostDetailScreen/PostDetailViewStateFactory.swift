@@ -15,7 +15,7 @@ protocol PostDetailViewStateFactoryProtocol {
     func make(_ dto: PostDetailViewStateFactoryInput) -> PostDetailViewState
 }
 
-final class PostDetailViewStateFactory: PostDetailViewStateFactoryProtocol {
+nonisolated final class PostDetailViewStateFactory: PostDetailViewStateFactoryProtocol {
     func make(_ dto: PostDetailViewStateFactoryInput) -> PostDetailViewState {
         let postDate = Date(timeIntervalSince1970: TimeInterval(dto.post.date))
 

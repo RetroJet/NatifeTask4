@@ -5,7 +5,7 @@
 //  Created by Nazar on 16.04.2026.
 //
 
-struct PostDetailMapper {
+nonisolated struct PostDetailMapper {
     static func toDomain(_ dto: PostDetailDTO) -> PostDetailInfo {
         PostDetailInfo(
             id: dto.postId,

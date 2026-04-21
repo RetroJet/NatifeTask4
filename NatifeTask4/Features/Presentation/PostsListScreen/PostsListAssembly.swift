@@ -8,14 +8,14 @@
 import UIKit
 
 final class PostsListAssembly {
-    static func build(container: DIContainer = .shared) -> UIViewController {
-        let router = PostsListRouter()
+    static func build(container: any DIContainerProtocol) -> UIViewController {
+        let router = PostsListRouter(container: container)
         let viewController = PostsListViewController()
         let viewStateFactory = PostsListViewStateFactory()
         let presenter = PostsListPresenter(
             viewStateFactory: viewStateFactory,
             viewController: viewController,
-            dataRepository: container.dataRepository,
+            dataRepository: container.getDataRepository(),
             router: router
         )
 

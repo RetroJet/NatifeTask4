@@ -5,7 +5,7 @@
 //  Created by Nazar on 16.04.2026.
 //
 
-struct PostsListMapper {
+nonisolated struct PostsListMapper {
     static func toDomain(_ dto: PostsListDTO) -> PostsListsInfo {
         PostsListsInfo(
             id: dto.postId,

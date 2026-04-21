@@ -17,7 +17,7 @@ protocol PostsListViewStateFactoryProtocol {
     func make(_ state: PostsListViewStateFactoryInput) -> PostsListViewState
 }
 
-final class PostsListViewStateFactory: PostsListViewStateFactoryProtocol {
+nonisolated final class PostsListViewStateFactory: PostsListViewStateFactoryProtocol {
     func make(_ state: PostsListViewStateFactoryInput) -> PostsListViewState {
 
         let items = state.posts.map { post in

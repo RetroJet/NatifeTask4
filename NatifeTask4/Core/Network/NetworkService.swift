@@ -28,7 +28,17 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
-final class NetworkService {
+protocol NetworkServiceProtocol {
+    func request(_ url: URL, _ method: HTTPMethod) async throws -> Data
+}
+
+extension NetworkServiceProtocol {
+    func request(_ url: URL) async throws -> Data {
+        try await request(url, .get)
+    }
+}
+
+nonisolated final class NetworkService: NetworkServiceProtocol {
     func request(_ url: URL, _ method: HTTPMethod = .get) async throws -> Data {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue

@@ -8,13 +8,13 @@
 import UIKit
 
 final class PostDetailAssembly {
-    static func build(postId: Int, container: DIContainer = .shared) -> UIViewController {
+    static func build(postId: Int, container: any DIContainerProtocol) -> UIViewController {
         let viewController = PostDetailViewController()
         let viewStateFactory = PostDetailViewStateFactory()
         let presenter = PostDetailPresenter(
             viewController: viewController,
             viewStateFactory: viewStateFactory,
-            dataRepository: container.dataRepository,
+            dataRepository: container.getDataRepository(),
             postId: postId
         )
 

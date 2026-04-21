@@ -13,20 +13,20 @@ protocol PostDetailPresenterProtocol: AnyObject {
 }
 
 final class PostDetailPresenter {
-    
+
     // MARK: - Properties
-    
+
     private weak var viewController: PostDetailViewControllerProtocol?
     private let viewStateFactory: PostDetailViewStateFactoryProtocol
-    private let dataRepository: DataRepository
+    private let dataRepository: any DataRepositoryProtocol
     private let postId: Int
-    
+
     // MARK: - Initializers
-    
+
     init(
         viewController: PostDetailViewControllerProtocol,
         viewStateFactory: PostDetailViewStateFactoryProtocol,
-        dataRepository: DataRepository,
+        dataRepository: any DataRepositoryProtocol,
         postId: Int
     ) {
         self.viewController = viewController
@@ -53,18 +53,15 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
             do {
                 let post = try await dataRepository.fetchPost(id: postId)
                 let state = viewStateFactory.make(PostDetailViewStateFactoryInput(post: post))
-                await MainActor.run {
                     self.viewController?.render(state)
-                }
+                    self.loadImage(from: post.postImage)
             } catch {
                 print("\(Constants.fetchPost): \(error)")
-                await MainActor.run {
                     self.viewController?.showError(PostDetailText.failedToLoadPost)
-                }
             }
         }
     }
-    
+
     func loadImage(from url: String) {
         Task {
             do {
@@ -72,8 +69,9 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
                 viewController?.showImage(data)
             } catch {
                 print("\(Constants.imageLoad): \(error)")
+                    self.viewController?.showError(PostDetailText.failedToLoadPost)
             }
         }
     }
-    
+
 }
