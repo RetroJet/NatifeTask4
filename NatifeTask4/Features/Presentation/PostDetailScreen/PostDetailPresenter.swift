@@ -53,11 +53,16 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
             do {
                 let post = try await dataRepository.fetchPost(id: postId)
                 let state = viewStateFactory.make(PostDetailViewStateFactoryInput(post: post))
+
+                await MainActor.run {
                     self.viewController?.render(state)
                     self.loadImage(from: post.postImage)
+                }
             } catch {
                 print("\(Constants.fetchPost): \(error)")
+                await MainActor.run {
                     self.viewController?.showError(PostDetailText.failedToLoadPost)
+                }
             }
         }
     }
@@ -66,10 +71,14 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
         Task {
             do {
                 let data = try await dataRepository.fetchImage(from: url)
-                viewController?.showImage(data)
+                await MainActor.run {
+                    viewController?.showImage(data)
+                }
             } catch {
                 print("\(Constants.imageLoad): \(error)")
+                await MainActor.run {
                     self.viewController?.showError(PostDetailText.failedToLoadPost)
+                }
             }
         }
     }

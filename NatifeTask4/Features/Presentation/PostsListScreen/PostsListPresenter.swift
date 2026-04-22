@@ -81,10 +81,15 @@ extension PostsListPresenter: PostsListPresenterProtocol {
             do {
                 let posts = try await dataRepository.fetchPosts()
                 allPosts = posts
-                search(currentQuery)
+                
+                await MainActor.run {
+                    search(currentQuery)
+                }
             } catch {
                 print("\(Constants.fetchPosts): \(error)")
-                viewController?.showError(PostsListText.failedToLoadPosts)
+                await MainActor.run {
+                    viewController?.showError(PostsListText.failedToLoadPosts)
+                }
             }
         }
     }
@@ -118,7 +123,9 @@ extension PostsListPresenter: PostsListPresenterProtocol {
             let filtered = allPosts.filter {
                 $0.previewText.range(of: trimmed, options: .caseInsensitive) != nil
             }
+            await MainActor.run {
                 self.viewController?.render(self.makeState(posts: filtered))
+            }
         }
     }
 }

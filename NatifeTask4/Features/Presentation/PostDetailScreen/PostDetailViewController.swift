@@ -200,7 +200,6 @@ extension PostDetailViewController: PostDetailViewControllerProtocol {
         likeLabel.text = state.item.like
 
         activityIndicator.startAnimating()
-        presenter.loadImage(from: state.item.image)
     }
 
     func showImage(_ data: Data) {
@@ -209,6 +208,7 @@ extension PostDetailViewController: PostDetailViewControllerProtocol {
     }
 
     func showError(_ message: String) {
+        activityIndicator.stopAnimating()
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: CommonText.okButtonTitle, style: .default))
         present(alert, animated: true)
