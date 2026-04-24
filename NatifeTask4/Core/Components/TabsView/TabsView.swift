@@ -5,6 +5,7 @@
 //  Created by Nazar on 30.03.2026.
 //
 
+import SnapKit
 import UIKit
 
 final class TabsView: UIView {
@@ -115,14 +116,11 @@ private extension TabsView {
 
 private extension TabsView {
     func setupLayout() {
-        disableAutoresizing(collectionView)
-
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        
+        collectionView.snp.makeConstraints { make in
+            make.verticalEdges.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
+        }
     }
 }
 

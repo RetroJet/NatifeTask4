@@ -173,15 +173,13 @@ private extension PostDetailViewController {
         
         textStackView.snp.makeConstraints { make in
             make.top.equalTo(imageMain.snp.bottom).offset(20)
-            make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
             make.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
         
         bottomStackView.snp.makeConstraints { make in
             make.top.equalTo(textStackView.snp.bottom).offset(20)
-            make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
             make.bottom.equalTo(contentView.snp.bottom).offset(-20)
         }
     }
