@@ -162,8 +162,7 @@ private extension PostsListCell {
         
         mainStackView.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.top).offset(20)
-            make.leading.equalTo(contentView.snp.leading).offset(20)
-            make.trailing.equalTo(contentView.snp.trailing).offset(-20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
             make.bottom.equalTo(contentView.snp.bottom).offset(-10)
         }
         
