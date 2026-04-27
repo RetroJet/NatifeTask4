@@ -5,6 +5,7 @@
 //  Created by Nazar on 01.04.2026.
 //
 
+import SnapKit
 import UIKit
 
 protocol PostsListViewControllerProtocol: AnyObject {
@@ -26,18 +27,21 @@ final class PostsListViewController: UIViewController {
 
     private lazy var diffableDataSource: UICollectionViewDiffableDataSource<Int, Int> = {
         let dataSource = UICollectionViewDiffableDataSource<Int, Int>(
-            collectionView: collectionView) { [weak self] collectionView, indexPath, postId in
-                guard let self else { return UICollectionViewCell() }
-                guard let viewState = viewStateItems.first(where: { $0.id == postId }) else {
-                    return UICollectionViewCell()
-                }
-                let cell: PostsListCell = collectionView.dequeue(for: indexPath)
-                cell.configure(with: viewState)
-                cell.expandButtonTapped = { [weak self] in
-                    self?.presenter.toggleExpand(postId)
-                }
-                return cell
+            collectionView: collectionView
+        ) { [weak self] collectionView, indexPath, postId in
+            guard let self else { return UICollectionViewCell() }
+            guard let viewState = viewStateItems.first(where: { $0.id == postId }) else {
+                return UICollectionViewCell()
             }
+            let cell: PostsListCell = collectionView.dequeue(for: indexPath)
+            cell.configure(with: viewState)
+            cell.expandButtonTapped = { [weak self] in
+                self?.presenter.toggleExpand(postId)
+            }
+            return cell
+            
+        }
+        
         return dataSource
     }()
 
@@ -111,27 +115,23 @@ private extension PostsListViewController {
 
 private extension PostsListViewController {
     func setupLayout() {
-        view.disableAutoresizing(
-            searchBar,
-            tabsView,
-            collectionView
-        )
-
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            tabsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-            tabsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabsView.heightAnchor.constraint(equalToConstant: 55),
-
-            collectionView.topAnchor.constraint(equalTo: tabsView.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+        }
+        
+        tabsView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(55)
+        }
+        
+        collectionView.snp.makeConstraints { make in
+            make.top.equalTo(tabsView.snp.bottom)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalTo(view)
+        }
     }
 }
 
@@ -182,7 +182,7 @@ private extension PostsListViewController {
         return UICollectionViewCompositionalLayout(section: section)
     }
 
-    func applySnapshot(with items: [PostsListItemViewState]) {
+    func applySnapshot(with items: [PostsListItemViewState], animated: Bool = true) {
         viewStateItems = items
         let newIds = items.map(\.id)
         let currentIds = diffableDataSource.snapshot().itemIdentifiers
@@ -190,15 +190,17 @@ private extension PostsListViewController {
         if !currentIds.isEmpty && Set(newIds) == Set(currentIds) {
             var snapshot = diffableDataSource.snapshot()
             snapshot.reconfigureItems(currentIds)
-            diffableDataSource.apply(snapshot, animatingDifferences: true)
-            UIView.animate(withDuration: 0.3) {
-                self.collectionView.layoutIfNeeded()
+            diffableDataSource.apply(snapshot, animatingDifferences: animated)
+            if animated {
+                UIView.animate(withDuration: 0.3) {
+                    self.collectionView.layoutIfNeeded()
+                }
             }
         } else {
             var snapshot = NSDiffableDataSourceSnapshot<Int, Int>()
             snapshot.appendSections([0])
             snapshot.appendItems(newIds)
-            diffableDataSource.apply(snapshot, animatingDifferences: true)
+            diffableDataSource.apply(snapshot, animatingDifferences: animated)
         }
     }
 
@@ -230,9 +232,12 @@ extension PostsListViewController: UICollectionViewDelegate {
 
 extension PostsListViewController: PostsListViewControllerProtocol {
     func render(_ state: PostsListViewState) {
-        applySnapshot(with: state.items)
+        tabsView.setSelected(index: state.selectedTab.tabIndex)
+        
+        let isLayoutChanging = state.selectedTab != currentLayout
+        applySnapshot(with: state.items, animated: !isLayoutChanging)
 
-        guard state.selectedTab != currentLayout else { return }
+        guard isLayoutChanging else { return }
         currentLayout = state.selectedTab
 
         let layout: UICollectionViewLayout

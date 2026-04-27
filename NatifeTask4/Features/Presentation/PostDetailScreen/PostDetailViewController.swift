@@ -5,6 +5,7 @@
 //  Created by Nazar on 06.04.2026.
 //
 
+import SnapKit
 import UIKit
 
 struct PostDetailItemViewState: Hashable {
@@ -149,44 +150,38 @@ private extension PostDetailViewController {
 
 private extension PostDetailViewController {
     func setupLayout() {
-        view.disableAutoresizing(
-            scrollView,
-            contentView,
-            imageMain,
-            activityIndicator,
-            textStackView,
-            bottomStackView
-        )
-
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
-            imageMain.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageMain.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageMain.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            imageMain.heightAnchor.constraint(equalToConstant: 350),
-
-            activityIndicator.centerXAnchor.constraint(equalTo: imageMain.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: imageMain.centerYAnchor),
-
-            textStackView.topAnchor.constraint(equalTo: imageMain.bottomAnchor, constant: 20),
-            textStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            textStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-
-            bottomStackView.topAnchor.constraint(equalTo: textStackView.bottomAnchor, constant: 20),
-            bottomStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            bottomStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            bottomStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-        ])
+        
+        scrollView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+        }
+        
+        imageMain.snp.makeConstraints { make in
+            make.top.equalTo(contentView)
+            make.horizontalEdges.equalTo(contentView)
+            make.height.equalTo(350)
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.center.equalTo(imageMain)
+            
+        }
+        
+        textStackView.snp.makeConstraints { make in
+            make.top.equalTo(imageMain.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-20)
+        }
+        
+        bottomStackView.snp.makeConstraints { make in
+            make.top.equalTo(textStackView.snp.bottom).offset(20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-20)
+        }
     }
 }
 

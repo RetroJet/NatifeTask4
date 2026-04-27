@@ -5,6 +5,7 @@
 //  Created by Nazar on 01.04.2026.
 //
 
+import SnapKit
 import UIKit
 
 struct PostsListItemViewState: Hashable {
@@ -158,16 +159,16 @@ private extension PostsListCell {
 
 private extension PostsListCell {
     func setupLayout() {
-        disableAutoresizing(mainStackView)
-
-        NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-
-            expandButton.heightAnchor.constraint(equalToConstant: 45)
-        ])
+        
+        mainStackView.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.top).offset(20)
+            make.horizontalEdges.equalTo(contentView).inset(20)
+            make.bottom.equalTo(contentView.snp.bottom).offset(-10)
+        }
+        
+        expandButton.snp.makeConstraints { make in
+            make.height.equalTo(45)
+        }
     }
 }
 

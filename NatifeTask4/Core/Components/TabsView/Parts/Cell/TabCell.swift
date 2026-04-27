@@ -5,6 +5,7 @@
 //  Created by Nazar on 31.03.2026.
 //
 
+import SnapKit
 import UIKit
 
 final class TabCell: UICollectionViewCell {
@@ -58,13 +59,9 @@ private extension TabCell {
 
 private extension TabCell {
     func setupLayout() {
-        contentView.disableAutoresizing(titleLabel)
-
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
-        ])
+            titleLabel.snp.makeConstraints({ make in
+                make.verticalEdges.equalTo(contentView)
+                make.horizontalEdges.equalTo(contentView)
+            })
     }
 }
