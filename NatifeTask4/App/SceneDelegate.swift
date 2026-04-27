@@ -22,10 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
 
-        let networkService = NetworkService()
+        let container = DIContainer()
         let navigationController = UINavigationController(
             rootViewController: PostsListAssembly.build(
-                networkService: networkService
+                container: container
             )
         )
 
