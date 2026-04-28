@@ -19,7 +19,7 @@ final class PostsListAssembly {
             router: router
         )
 
-        viewController.presenter = presenter
+        viewController.inject(presenter: presenter)
         router.viewController = viewController
 
         return viewController

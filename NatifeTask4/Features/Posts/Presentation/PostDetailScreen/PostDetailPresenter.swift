@@ -61,7 +61,7 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
             } catch {
                 print("\(Constants.fetchPost): \(error)")
                 await MainActor.run {
-                    self.viewController?.showError(PostDetailText.failedToLoadPost)
+                    self.viewController?.render(PostDetailViewState(item: nil, imageData: nil, errorMessage: PostDetailText.failedToLoadPost))
                 }
             }
         }
@@ -72,12 +72,12 @@ extension PostDetailPresenter: PostDetailPresenterProtocol {
             do {
                 let data = try await dataRepository.fetchImage(from: url)
                 await MainActor.run {
-                    viewController?.showImage(data)
+                    viewController?.render(PostDetailViewState(item: nil, imageData: data, errorMessage: nil))
                 }
             } catch {
                 print("\(Constants.imageLoad): \(error)")
                 await MainActor.run {
-                    self.viewController?.showError(PostDetailText.failedToLoadPost)
+                    self.viewController?.render(PostDetailViewState(item: nil, imageData: nil, errorMessage: PostDetailText.failedToLoadPost))
                 }
             }
         }

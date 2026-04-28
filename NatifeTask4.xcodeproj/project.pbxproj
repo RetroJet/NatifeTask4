@@ -98,7 +98,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				787B88302F92F56600F06825 /* PBXTargetDependency */,
+				780165CA2FA14AD10097F8EF /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				789B4A5B2F7D225B00DFF47A /* NatifeTask4 */,
@@ -168,6 +168,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		787B88312F92F6FE00F06825 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -198,9 +199,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		787B88302F92F56600F06825 /* PBXTargetDependency */ = {
+		780165CA2FA14AD10097F8EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 787B882F2F92F56600F06825 /* SwiftLintBuildToolPlugin */;
+			productRef = 780165C92FA14AD10097F8EF /* SwiftLintBuildToolPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -466,6 +467,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		780165C92FA14AD10097F8EF /* SwiftLintBuildToolPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 789BBE332F83BADC0046A4E8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
+			productName = "plugin:SwiftLintBuildToolPlugin";
+		};
 		787B881D2F92CE5400F06825 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 787B881C2F92CE5400F06825 /* XCRemoteSwiftPackageReference "SnapKit" */;
@@ -480,11 +486,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 787B882C2F92F36200F06825 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
-		};
-		787B882F2F92F56600F06825 /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 789BBE332F83BADC0046A4E8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
 		};
 		787B88342F93004E00F06825 /* DebugSwift */ = {
 			isa = XCSwiftPackageProductDependency;

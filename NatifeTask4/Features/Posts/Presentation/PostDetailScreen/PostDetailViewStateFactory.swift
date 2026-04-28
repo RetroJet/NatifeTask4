@@ -28,6 +28,10 @@ nonisolated final class PostDetailViewStateFactory: PostDetailViewStateFactoryPr
             like: "\(CommonSymbols.like)\(dto.post.like)"
         )
 
-        return PostDetailViewState(item: item)
+        return PostDetailViewState(
+            item: item,
+            imageData: nil,
+            errorMessage: nil
+        )
     }
 }

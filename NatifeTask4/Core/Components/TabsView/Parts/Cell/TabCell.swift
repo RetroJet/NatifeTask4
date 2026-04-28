@@ -60,8 +60,7 @@ private extension TabCell {
 private extension TabCell {
     func setupLayout() {
             titleLabel.snp.makeConstraints({ make in
-                make.verticalEdges.equalTo(contentView)
-                make.horizontalEdges.equalTo(contentView)
+                make.edges.equalTo(contentView)
             })
     }
 }

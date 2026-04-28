@@ -18,7 +18,7 @@ final class PostDetailAssembly {
             postId: postId
         )
 
-        viewController.presenter = presenter
+        viewController.inject(presenter: presenter)
         return viewController
     }
 }

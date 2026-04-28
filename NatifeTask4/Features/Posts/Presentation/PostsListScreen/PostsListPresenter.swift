@@ -88,7 +88,7 @@ extension PostsListPresenter: PostsListPresenterProtocol {
             } catch {
                 print("\(Constants.fetchPosts): \(error)")
                 await MainActor.run {
-                    viewController?.showError(PostsListText.failedToLoadPosts)
+                    viewController?.render(PostsListViewState(items: [], selectedTab: currentLayout, errorMessage: PostsListText.failedToLoadPosts))
                 }
             }
         }

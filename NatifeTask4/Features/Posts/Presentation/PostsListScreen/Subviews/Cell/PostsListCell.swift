@@ -8,17 +8,6 @@
 import SnapKit
 import UIKit
 
-struct PostsListItemViewState: Hashable {
-    let id: Int
-    let date: String
-    let title: String
-    let previewText: String
-    let like: String
-    let isExpanded: Bool
-    let showExpandButton: Bool
-    let titleNumberOfLines: Int
-}
-
 final class PostsListCell: UICollectionViewCell {
 
     // MARK: - UI Elements
@@ -108,7 +97,7 @@ final class PostsListCell: UICollectionViewCell {
 // MARK: - Internal Methods
 
 extension PostsListCell {
-    func configure(with viewState: PostsListItemViewState) {
+    func render(with viewState: PostsListItemViewState) {
         dateLabel.text = viewState.date
         titleLabel.text = viewState.title
         titleLabel.numberOfLines = viewState.titleNumberOfLines

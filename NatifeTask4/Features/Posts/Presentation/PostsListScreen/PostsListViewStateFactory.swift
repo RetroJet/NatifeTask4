@@ -37,6 +37,6 @@ nonisolated final class PostsListViewStateFactory: PostsListViewStateFactoryProt
             )
         }
 
-        return PostsListViewState(items: items, selectedTab: state.layoutType)
+        return PostsListViewState(items: items, selectedTab: state.layoutType, errorMessage: nil)
     }
 }

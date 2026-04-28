@@ -118,8 +118,7 @@ private extension TabsView {
     func setupLayout() {
         
         collectionView.snp.makeConstraints { make in
-            make.verticalEdges.equalToSuperview()
-            make.horizontalEdges.equalToSuperview()
+            make.edges.equalToSuperview()
         }
     }
 }

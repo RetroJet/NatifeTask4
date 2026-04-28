@@ -22,13 +22,6 @@ enum NetworkError: LocalizedError {
     }
 }
 
-enum HTTPMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case delete = "DELETE"
-}
-
 protocol NetworkServiceProtocol {
     func request(_ url: URL, _ method: HTTPMethod) async throws -> Data
 }
